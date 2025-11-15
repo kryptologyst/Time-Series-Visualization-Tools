@@ -1,0 +1,66 @@
+# Time Series Analysis Configuration
+
+# Data settings
+data:
+  synthetic:
+    n_points: 1000
+    start_date: "2020-01-01"
+    freq: "D"
+    noise_level: 0.1
+  
+  real_data:
+    sources:
+      - name: "energy"
+        url: "https://raw.githubusercontent.com/jbrownlee/Datasets/master/daily-total-female-births.csv"
+      - name: "weather"
+        url: "https://raw.githubusercontent.com/jbrownlee/Datasets/master/daily-min-temperatures.csv"
+
+# Model settings
+models:
+  arima:
+    max_p: 5
+    max_d: 2
+    max_q: 5
+    seasonal: true
+  
+  prophet:
+    yearly_seasonality: true
+    weekly_seasonality: true
+    daily_seasonality: false
+  
+  lstm:
+    sequence_length: 60
+    hidden_size: 50
+    num_layers: 2
+    dropout: 0.2
+    epochs: 100
+    batch_size: 32
+
+# Anomaly detection
+anomaly_detection:
+  isolation_forest:
+    contamination: 0.1
+    random_state: 42
+  
+  autoencoder:
+    encoding_dim: 32
+    epochs: 100
+    batch_size: 32
+
+# Visualization
+visualization:
+  figure_size: [12, 8]
+  style: "seaborn-v0_8"
+  color_palette: "husl"
+  
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/time_series_analysis.log"
+
+# Streamlit
+streamlit:
+  page_title: "Time Series Analysis Dashboard"
+  page_icon: "📈"
+  layout: "wide"
